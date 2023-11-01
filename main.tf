@@ -17,9 +17,9 @@ module "network" {
   logs_config = var.logs_config
 }
 
-module "misc" {
+module "post" {
   depends_on = [ module.network ]
-  source = "./modules/bootstrap/misc"
+  source = "./modules/bootstrap/post"
   project_id = module.base.project_id
   alias = module.base.alias
 }

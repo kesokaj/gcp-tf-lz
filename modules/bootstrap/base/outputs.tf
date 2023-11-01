@@ -11,7 +11,11 @@ output "project_number" {
 }
 
 output "alias" {
-  value = random_pet.x.id
+  value = "${random_string.x.id}${random_integer.x.id}-${random_pet.x.id}"
+}
+
+output "alias_id" {
+  value = "${random_string.x.id}${random_integer.x.id}"
 }
 
 output "org_id" {

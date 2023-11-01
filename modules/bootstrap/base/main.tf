@@ -1,10 +1,21 @@
+resource "random_string" "x" {
+  length = 2
+  special = false
+  upper = false
+  lower = true
+}
+
+resource "random_integer" "x" {
+  min = 10
+  max = 99
+}
+
 resource "random_pet" "x" {
   length = 2
-  prefix = "xyz"
 }
 resource "google_project" "x" {
-  name            = random_pet.x.id
-  project_id      = random_pet.x.id
+  name            = "${random_string.x.id}${random_integer.x.id}-${random_pet.x.id}"
+  project_id      = "${random_string.x.id}${random_integer.x.id}-${random_pet.x.id}"
   billing_account = var.billing_id
   org_id          = var.org_id
 }

@@ -8,9 +8,9 @@ resource "google_compute_network" "x" {
   routing_mode            = "GLOBAL"
 }
 
-### Private Network Allocation
+### PSC
 resource "google_compute_global_address" "x" {
-  name          = "${var.alias}"
+  name          = "psc-reserved"
   address_type  = "INTERNAL"
   purpose       = "VPC_PEERING"
   network       = google_compute_network.x.id
@@ -59,13 +59,12 @@ resource "google_compute_subnetwork" "x" {
 resource "google_compute_subnetwork" "proxy" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "${each.key}-gke-proxy-only"
+  name          = "rmp-${each.key}"
   ip_cidr_range = each.value.secondary_ranges.proxy
   region        = each.key
   project       = var.project_id
   purpose       = "REGIONAL_MANAGED_PROXY"
   role          = "ACTIVE"
-  #private_ip_google_access = true
   network       = google_compute_network.x.id
 }
 
@@ -93,14 +92,14 @@ resource "google_compute_firewall" "rule" {
 ### NAT
 resource "google_compute_address" "x" {
   for_each = var.vpc_config
-  name   = "${var.alias}-${each.key}"
+  name   = "natip-${each.key}"
   region = each.key
   project = var.project_id
 }
 
 resource "google_compute_router" "x" {
   for_each = var.vpc_config
-  name    = "${google_compute_network.x.name}-${each.key}"
+  name    = "router-${each.key}"
   region  = each.key
   project = var.project_id
   network = google_compute_network.x.id
@@ -108,7 +107,7 @@ resource "google_compute_router" "x" {
 
 resource "google_compute_router_nat" "x" {
   for_each = var.vpc_config
-  name                               = "${google_compute_network.x.name}-${each.key}"
+  name                               = "nat-${each.key}"
   router                             = google_compute_router.x[each.key].name
   region                             = each.key
   project                            = var.project_id

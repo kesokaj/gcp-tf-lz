@@ -9,3 +9,7 @@ output "project_number" {
 output "alias" {
   value = module.base.alias
 }
+
+output "alias_id" {
+  value = module.base.alias_id
+}
