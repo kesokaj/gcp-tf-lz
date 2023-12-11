@@ -97,7 +97,23 @@ variable "firewall_config" {
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
-    }
+    },
+    "allow-custom": {
+      "procotol" : "tcp",
+      "ports": ["8080","3000"],
+      "tags": ["custom"],
+      "source" : ["0.0.0.0/0"],
+      "logs" : "INCLUDE_ALL_METADATA",
+      "priority" : "100"
+    },
+    "allow-kube-api": {
+      "procotol" : "tcp",
+      "ports": ["6443"],
+      "tags": ["kube-api"],
+      "source" : ["0.0.0.0/0"],
+      "logs" : "INCLUDE_ALL_METADATA",
+      "priority" : "100"
+    }        
   }
 }
 
@@ -111,6 +127,7 @@ variable "vpc_config" {
         "pods" : "10.1.16.0/20",
         "services" : "10.1.32.0/20",
         "proxy" : "10.1.2.0/24",
+        "psc" : "10.1.3.0/24",
         "gke-master" : "10.1.1.0/24",
       }
     },
@@ -120,6 +137,7 @@ variable "vpc_config" {
         "pods" : "10.2.16.0/20",
         "services" : "10.2.32.0/20",
         "proxy" : "10.2.2.0/24",
+        "psc" : "10.2.3.0/24",
         "gke-master" : "10.2.1.0/24"
       }      
     },
@@ -129,6 +147,7 @@ variable "vpc_config" {
         "pods" : "10.3.16.0/20",
         "services" : "10.3.32.0/20",
         "proxy" : "10.3.2.0/24",
+        "psc" : "10.3.3.0/24",
         "gke-master" : "10.3.1.0/24",
       }      
     }
@@ -138,6 +157,7 @@ variable "vpc_config" {
         "pods" : "10.4.16.0/20",
         "services" : "10.4.32.0/20",
         "proxy" : "10.4.2.0/24",
+        "psc" : "10.4.3.0/24",
         "gke-master" : "10.4.1.0/24",
       }      
     }    
@@ -160,7 +180,7 @@ variable "logs_config" {
   }
 }
 
-variable "private_network_allocation" {
+variable "peer_allocation" {
   type = string
   description = "Peering network for different services a /20 will be used"
   default = "10.100.0.0"
@@ -194,7 +214,10 @@ variable "service_list" {
     "dns.googleapis.com",
     "compute.googleapis.com",
     "networkmanagement.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
+    "servicedirectory.googleapis.com",
+    "networkconnectivity.googleapis.com",
+    "cloudaicompanion.googleapis.com"
   ]
 }
 

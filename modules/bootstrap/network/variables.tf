@@ -16,7 +16,7 @@ variable "firewall_config" {
   description = "Firewall rules in VPC"
 }
 
-variable "private_network_allocation" {
+variable "peer_allocation" {
   type = string
   description = "Peering network for different services a /20 will be used"
 }

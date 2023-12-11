@@ -8,23 +8,22 @@ resource "google_compute_network" "x" {
   routing_mode            = "GLOBAL"
 }
 
-### PSC
-resource "google_compute_global_address" "x" {
-  name          = "psc-reserved"
+### Peering allocation
+resource "google_compute_global_address" "peering" {
+  name          = "peering-reserved"
   address_type  = "INTERNAL"
   purpose       = "VPC_PEERING"
   network       = google_compute_network.x.id
   project       = var.project_id
-  address       = var.private_network_allocation
+  address       = var.peer_allocation
   prefix_length = 20
-
 }
 
-### Private service network
+### Peering network hold
 resource "google_service_networking_connection" "x" {
   network                 = google_compute_network.x.id
   service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.x.name]
+  reserved_peering_ranges = [google_compute_global_address.peering.name]
 }
 
 ### SUBNETS 
@@ -64,6 +63,19 @@ resource "google_compute_subnetwork" "proxy" {
   region        = each.key
   project       = var.project_id
   purpose       = "REGIONAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+  network       = google_compute_network.x.id
+}
+
+### PSC ONLY NETWORK 
+resource "google_compute_subnetwork" "psc" {
+  provider      = google-beta
+  for_each      = var.vpc_config
+  name          = "psc-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc
+  region        = each.key
+  project       = var.project_id
+  purpose       = "PRIVATE_SERVICE_CONNECT"
   role          = "ACTIVE"
   network       = google_compute_network.x.id
 }

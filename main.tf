@@ -13,7 +13,7 @@ module "network" {
   project_id = module.base.project_id
   vpc_config = var.vpc_config
   firewall_config = var.firewall_config
-  private_network_allocation = var.private_network_allocation
+  peer_allocation = var.peer_allocation
   logs_config = var.logs_config
 }
 

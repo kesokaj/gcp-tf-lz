@@ -3,6 +3,7 @@ resource "random_string" "x" {
   special = false
   upper = false
   lower = true
+  numeric = false
 }
 
 resource "random_integer" "x" {
