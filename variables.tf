@@ -217,7 +217,32 @@ variable "service_list" {
     "servicenetworking.googleapis.com",
     "servicedirectory.googleapis.com",
     "networkconnectivity.googleapis.com",
-    "cloudaicompanion.googleapis.com"
+    "cloudaicompanion.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com",
+    "clouderrorreporting.googleapis.com",
+    "cloudtrace.googleapis.com",
+    "opsconfigmonitoring.googleapis.com",
+    "servicehealth.googleapis.com",
+    "cloudlatencytest.googleapis.com",
+    "timeseriesinsights.googleapis.com",
+    "checks.googleapis.com",
+    "cloudidentity.googleapis.com",
+    "containersecurity.googleapis.com",
+    "certificatemanager.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "containerregistry.googleapis.com",
+    "osconfig.googleapis.com",
+    "bigqueryconnection.googleapis.com",
+    "biglake.googleapis.com",
+    "networkservices.googleapis.com",
+    "edgenetwork.googleapis.com",
+    "networktopology.googleapis.com",
+    "vpcaccess.googleapis.com",
+    "tagmanager.googleapis.com",
+    "pubsub.googleapis.com",
+    "pubsublite.googleapis.com"
   ]
 }
 
