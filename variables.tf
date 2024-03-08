@@ -122,45 +122,55 @@ variable "vpc_config" {
   description = "Regions for VPC Subnets to be created"
   default = {
     "us-central1" : {
-      "vpc_subnet_cidr" : "10.1.4.0/22"
+      "vpc_subnet_cidr" : "10.1.0.0/22"
       "secondary_ranges" :{
-        "pods" : "10.1.16.0/20",
-        "services" : "10.1.32.0/20",
-        "proxy" : "10.1.2.0/24",
-        "psc" : "10.1.3.0/24",
-        "gke-master" : "10.1.1.0/24",
+        "gke-master" : "10.1.4.0/24",        
+        "proxy" : "10.1.5.0/24",
+        "psc" : "10.1.6.0/24",
+        "services" : "10.1.16.0/20",
+        "pods" : "10.1.32.0/18",              
       }
     },
     "europe-west1" : {
-      "vpc_subnet_cidr" : "10.2.4.0/22"
+      "vpc_subnet_cidr" : "10.2.0.0/22"
       "secondary_ranges" :{
-        "pods" : "10.2.16.0/20",
-        "services" : "10.2.32.0/20",
-        "proxy" : "10.2.2.0/24",
-        "psc" : "10.2.3.0/24",
-        "gke-master" : "10.2.1.0/24"
+        "gke-master" : "10.2.4.0/24",        
+        "proxy" : "10.2.5.0/24",
+        "psc" : "10.2.6.0/24",
+        "services" : "10.2.16.0/20",
+        "pods" : "10.2.32.0/18", 
       }      
     },
     "europe-north1" : {
-      "vpc_subnet_cidr" : "10.3.4.0/22"
+      "vpc_subnet_cidr" : "10.3.0.0/22"
       "secondary_ranges" :{
-        "pods" : "10.3.16.0/20",
-        "services" : "10.3.32.0/20",
-        "proxy" : "10.3.2.0/24",
-        "psc" : "10.3.3.0/24",
-        "gke-master" : "10.3.1.0/24",
+        "gke-master" : "10.3.4.0/24",        
+        "proxy" : "10.3.5.0/24",
+        "psc" : "10.3.6.0/24",
+        "services" : "10.3.16.0/20",
+        "pods" : "10.3.32.0/18", 
       }      
     }
     "asia-east1" : {
-      "vpc_subnet_cidr" : "10.4.4.0/22"
+      "vpc_subnet_cidr" : "10.4.0.0/22"
       "secondary_ranges" :{
-        "pods" : "10.4.16.0/20",
-        "services" : "10.4.32.0/20",
-        "proxy" : "10.4.2.0/24",
-        "psc" : "10.4.3.0/24",
-        "gke-master" : "10.4.1.0/24",
+        "gke-master" : "10.4.4.0/24",        
+        "proxy" : "10.4.5.0/24",
+        "psc" : "10.4.6.0/24",
+        "services" : "10.4.16.0/20",
+        "pods" : "10.4.32.0/18", 
       }      
-    }    
+    },
+    "europe-west4" : {
+      "vpc_subnet_cidr" : "10.5.0.0/22"
+      "secondary_ranges" :{
+        "gke-master" : "10.5.4.0/24",        
+        "proxy" : "10.5.5.0/24",
+        "psc" : "10.5.6.0/24",
+        "services" : "10.5.16.0/20",
+        "pods" : "10.5.32.0/18", 
+      }      
+    }        
   }
 }
 
@@ -242,7 +252,8 @@ variable "service_list" {
     "vpcaccess.googleapis.com",
     "tagmanager.googleapis.com",
     "pubsub.googleapis.com",
-    "pubsublite.googleapis.com"
+    "pubsublite.googleapis.com",
+    "cloudresourcemanager.googleapis.com"
   ]
 }
 
