@@ -128,7 +128,7 @@ variable "vpc_config" {
         "proxy" : "10.1.5.0/24",
         "psc" : "10.1.6.0/24",
         "services" : "10.1.16.0/20",
-        "pods" : "10.1.32.0/18",              
+        "pods" : "10.1.128.0/17",              
       }
     },
     "europe-west1" : {
@@ -138,7 +138,7 @@ variable "vpc_config" {
         "proxy" : "10.2.5.0/24",
         "psc" : "10.2.6.0/24",
         "services" : "10.2.16.0/20",
-        "pods" : "10.2.32.0/18", 
+        "pods" : "10.2.128.0/17", 
       }      
     },
     "europe-north1" : {
@@ -148,7 +148,7 @@ variable "vpc_config" {
         "proxy" : "10.3.5.0/24",
         "psc" : "10.3.6.0/24",
         "services" : "10.3.16.0/20",
-        "pods" : "10.3.32.0/18", 
+        "pods" : "10.3.128.0/17", 
       }      
     }
     "asia-east1" : {
@@ -158,7 +158,7 @@ variable "vpc_config" {
         "proxy" : "10.4.5.0/24",
         "psc" : "10.4.6.0/24",
         "services" : "10.4.16.0/20",
-        "pods" : "10.4.32.0/18", 
+        "pods" : "10.4.128.0/17", 
       }      
     },
     "europe-west4" : {
@@ -168,7 +168,7 @@ variable "vpc_config" {
         "proxy" : "10.5.5.0/24",
         "psc" : "10.5.6.0/24",
         "services" : "10.5.16.0/20",
-        "pods" : "10.5.32.0/18", 
+        "pods" : "10.5.128.0/17", 
       }      
     }        
   }
@@ -253,7 +253,8 @@ variable "service_list" {
     "tagmanager.googleapis.com",
     "pubsub.googleapis.com",
     "pubsublite.googleapis.com",
-    "cloudresourcemanager.googleapis.com"
+    "cloudresourcemanager.googleapis.com",
+    "firewallinsights.googleapis.com"
   ]
 }
 
