@@ -227,7 +227,7 @@ variable "service_list" {
     "servicenetworking.googleapis.com",
     "servicedirectory.googleapis.com",
     "networkconnectivity.googleapis.com",
-    "cloudaicompanion.googleapis.com",
+    #"cloudaicompanion.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "clouderrorreporting.googleapis.com",
