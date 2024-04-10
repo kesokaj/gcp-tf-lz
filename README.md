@@ -1,6 +1,8 @@
 ````
 install gcloud-sdk https://cloud.google.com/sdk/docs/install-sdk#installing_the_latest_version
 
+gcloud auth login
+
 gcloud auth application-default login
 or
 set -x GOOGLE_APPLICATION_CREDENTIALS <PATH TO JSON KEY> <-- fish
