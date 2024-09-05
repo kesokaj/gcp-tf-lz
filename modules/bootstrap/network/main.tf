@@ -36,16 +36,15 @@ resource "google_compute_subnetwork" "x" {
   network                  = google_compute_network.x.id
   private_ip_google_access = true
 
-  secondary_ip_range = [
-    {
-      range_name = "pods"
+  secondary_ip_range {
+      range_name    = "pods"
       ip_cidr_range = each.value.secondary_ranges.pods
-    },
-    {
-      range_name = "services"
+    }
+  secondary_ip_range {    
+      range_name    = "services"
       ip_cidr_range = each.value.secondary_ranges.services
-    },    
-  ]
+    }
+
 
   log_config {
     aggregation_interval   = var.logs_config.subnet.interval
