@@ -213,7 +213,8 @@ variable "org_policy_list" {
     "constraints/sql.restrictAuthorizedNetworks",
     "constraints/compute.disableSerialPortLogging",
     "constraints/compute.disableSerialPortAccess",
-    "constraints/compute.vmCanIpForward"
+    "constraints/compute.vmCanIpForward",
+    "constraints/compute.restrictProtocolForwardingCreationForTypes"
   ]
 }
 
