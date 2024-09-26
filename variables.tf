@@ -258,7 +258,10 @@ variable "service_list" {
     "cloudresourcemanager.googleapis.com",  # Cloud Resource Manager - For managing your cloud resources, including projects, folders, and organizations
     "firewallinsights.googleapis.com",  # Firewall Insights - For analyzing firewall logs and traffic
     "datastudio.googleapis.com",  # Data Studio - For creating interactive dashboards and reports
-    "cloud.googleapis.com"       # Google Cloud APIs -  A general API for accessing various Google Cloud services
+    "cloud.googleapis.com",       # Google Cloud APIs -  A general API for accessing various Google Cloud services
+    "storage-component.googleapis.com",
+    "storage.googleapis.com",
+    "storageinsights.googleapis.com"
   ]
 }
 
