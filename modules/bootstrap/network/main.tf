@@ -1,11 +1,14 @@
 
 ### VPC
 resource "google_compute_network" "x" {
-  project                 = var.project_id
-  name                    = "${var.alias}"
-  auto_create_subnetworks = false
-  mtu                     = 8896
-  routing_mode            = "GLOBAL"
+  project                       = var.project_id
+  name                          = "${var.alias}"
+  auto_create_subnetworks       = false
+  mtu                           = 8896
+  routing_mode                  = "GLOBAL"
+  bgp_best_path_selection_mode  = "STANDARD"
+  bgp_always_compare_med        = true
+  bgp_inter_region_cost         = "ADD_COST_TO_MED"
 }
 
 ### Peering allocation
