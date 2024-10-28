@@ -1,6 +1,7 @@
 
 ### VPC
 resource "google_compute_network" "x" {
+  provider                      = google-beta
   project                       = var.project_id
   name                          = "${var.alias}"
   auto_create_subnetworks       = false
