@@ -100,20 +100,12 @@ variable "firewall_config" {
     },
     "allow-custom": {
       "procotol" : "tcp",
-      "ports": ["8080","3000"],
+      "ports": ["8080","3000","2222"],
       "tags": ["custom"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
-    },
-    "allow-kube-api": {
-      "procotol" : "tcp",
-      "ports": ["6443"],
-      "tags": ["kube-api"],
-      "source" : ["0.0.0.0/0"],
-      "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "100"
-    }        
+    },       
   }
 }
 

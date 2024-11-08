@@ -33,7 +33,7 @@ resource "google_service_networking_connection" "x" {
 ### SUBNETS 
 resource "google_compute_subnetwork" "x" {
   for_each = var.vpc_config
-  name                     = "a-sub-${each.key}"
+  name                     = "${each.key}"
   ip_cidr_range            = each.value.vpc_subnet_cidr
   region                   = each.key
   project                  = var.project_id
@@ -61,7 +61,7 @@ resource "google_compute_subnetwork" "x" {
 resource "google_compute_subnetwork" "proxy" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "x-rmp-${each.key}"
+  name          = "rmp-${each.key}"
   ip_cidr_range = each.value.secondary_ranges.proxy
   region        = each.key
   project       = var.project_id
@@ -74,7 +74,7 @@ resource "google_compute_subnetwork" "proxy" {
 resource "google_compute_subnetwork" "psc" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "z-psc-${each.key}"
+  name          = "psc-${each.key}"
   ip_cidr_range = each.value.secondary_ranges.psc
   region        = each.key
   project       = var.project_id
