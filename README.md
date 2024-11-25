@@ -1,3 +1,5 @@
+![alt text](https://github.com/kesokaj/gcp-tf-lz/blob/master/overview.png?raw=true)
+
 ````
 install gcloud-sdk https://cloud.google.com/sdk/docs/install-sdk#installing_the_latest_version
 
