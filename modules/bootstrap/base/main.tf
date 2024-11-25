@@ -19,6 +19,7 @@ resource "google_project" "x" {
   project_id      = "${random_string.x.id}${random_integer.x.id}-${random_pet.x.id}"
   billing_account = var.billing_id
   org_id          = var.org_id
+  deletion_policy = "DELETE"
 }
 
 resource "google_project_service" "x" {

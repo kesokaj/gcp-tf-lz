@@ -18,3 +18,15 @@ export GOOGLE_APPLICATION_CREDENTIALS=<PATH TO JSON KEY> <-- bash
 5.) terraform destory --auto-approve <-- to cleanup
 6.) ./cleanup.sh to remove old files
 ````
+
+### Full example
+https://github.com/GoogleCloudPlatform/cloud-foundation-fabric/tree/master/fast
+
+### Landing zone design
+https://cloud.google.com/architecture/landing-zones
+
+### Terraform on Google Cloud
+https://cloud.google.com/docs/terraform
+
+### Terraform CDK
+https://developer.hashicorp.com/terraform/cdktf
