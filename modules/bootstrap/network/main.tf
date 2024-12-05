@@ -70,12 +70,48 @@ resource "google_compute_subnetwork" "proxy" {
   network       = google_compute_network.x.id
 }
 
-### PSC ONLY NETWORK 
-resource "google_compute_subnetwork" "psc" {
+### PSC ONLY NETWORK (I DONT LIKE THIS SETUP. WILL FIX IN THE FUTURE)
+resource "google_compute_subnetwork" "psc1" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "psc-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.psc
+  name          = "psc1-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc.psc1
+  region        = each.key
+  project       = var.project_id
+  purpose       = "PRIVATE_SERVICE_CONNECT"
+  role          = "ACTIVE"
+  network       = google_compute_network.x.id
+}
+
+resource "google_compute_subnetwork" "psc2" {
+  provider      = google-beta
+  for_each      = var.vpc_config
+  name          = "psc2-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc.psc2
+  region        = each.key
+  project       = var.project_id
+  purpose       = "PRIVATE_SERVICE_CONNECT"
+  role          = "ACTIVE"
+  network       = google_compute_network.x.id
+}
+
+resource "google_compute_subnetwork" "psc3" {
+  provider      = google-beta
+  for_each      = var.vpc_config
+  name          = "psc3-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc.psc3
+  region        = each.key
+  project       = var.project_id
+  purpose       = "PRIVATE_SERVICE_CONNECT"
+  role          = "ACTIVE"
+  network       = google_compute_network.x.id
+}
+
+resource "google_compute_subnetwork" "psc4" {
+  provider      = google-beta
+  for_each      = var.vpc_config
+  name          = "psc4-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc.psc4
   region        = each.key
   project       = var.project_id
   purpose       = "PRIVATE_SERVICE_CONNECT"
@@ -91,7 +127,7 @@ resource "google_compute_firewall" "rule" {
   project = var.project_id
 
   allow {
-    protocol = each.value.procotol
+    protocol = each.value.protocol
     ports    = each.value.ports
   }
 

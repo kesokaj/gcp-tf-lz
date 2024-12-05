@@ -11,7 +11,7 @@ variable "firewall_config" {
   description = "Firewall rules in VPC"
   default = {
     "allow-rdp-tcp": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports" : ["3389"],
       "tags": ["rdp"],
       "source" : ["0.0.0.0/0"],
@@ -19,7 +19,7 @@ variable "firewall_config" {
       "priority" : "100"
     },
     "allow-ssh-tcp": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports" : ["22"],
       "tags": ["ssh"],
       "source" : ["0.0.0.0/0"],
@@ -27,7 +27,7 @@ variable "firewall_config" {
       "priority" : "100"
     },
     "allow-healthcheck-tcp": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports": ["0-65535"],
       "tags": [],
       "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
@@ -35,7 +35,7 @@ variable "firewall_config" {
       "priority" : "500"
     },
     "allow-healthcheck-udp": {
-      "procotol" : "udp",
+      "protocol" : "udp",
       "ports": ["0-65535"],
       "tags": [],
       "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
@@ -43,23 +43,23 @@ variable "firewall_config" {
       "priority" : "500"
     },    
     "allow-iap-tcp": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "tags": [],      
-      "ports": ["0-65535"]
+      "ports": ["0-65535"],
       "source" : ["35.235.240.0/20"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "500"
     },
     "allow-iap-udp": {
-      "procotol" : "udp",
+      "protocol" : "udp",
       "tags": [],      
-      "ports": ["0-65535"]
+      "ports": ["0-65535"],
       "source" : ["35.235.240.0/20"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "500"
     },    
     "allow-icmp": {
-      "procotol" : "icmp",
+      "protocol" : "icmp",
       "ports": [],
       "tags": [],      
       "source" : ["0.0.0.0/0"],
@@ -67,7 +67,7 @@ variable "firewall_config" {
       "priority" : "65535"
     },
     "allow-internal-tcp": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports": ["0-65535"],
       "tags": [],      
       "source" : ["10.0.0.0/8"],
@@ -75,7 +75,7 @@ variable "firewall_config" {
       "priority" : "65535"
     },
     "allow-internal-udp": {
-      "procotol" : "udp",
+      "protocol" : "udp",
       "ports": ["0-65535"],
       "tags": [],      
       "source" : ["10.0.0.0/8"],
@@ -83,7 +83,7 @@ variable "firewall_config" {
       "priority" : "65535"
     },    
     "allow-http": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports": ["80"],
       "tags": ["http"],
       "source" : ["0.0.0.0/0"],
@@ -91,7 +91,7 @@ variable "firewall_config" {
       "priority" : "100"
     },
     "allow-https": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports": ["443"],
       "tags": ["https"],
       "source" : ["0.0.0.0/0"],
@@ -99,7 +99,7 @@ variable "firewall_config" {
       "priority" : "100"
     },
     "allow-custom": {
-      "procotol" : "tcp",
+      "protocol" : "tcp",
       "ports": ["8080","3000","2222"],
       "tags": ["custom"],
       "source" : ["0.0.0.0/0"],
@@ -118,7 +118,12 @@ variable "vpc_config" {
       "secondary_ranges" :{
         "gke-master" : "10.1.4.0/24",        
         "proxy" : "10.1.5.0/24",
-        "psc" : "10.1.6.0/24",
+        "psc" : {
+          "psc1" : "10.1.6.0/26",
+          "psc2" : "10.1.6.64/26",
+          "psc3" : "10.1.6.128/26",
+          "psc4" : "10.1.6.192/26"
+        },        
         "services" : "10.1.16.0/20",
         "pods" : "10.1.128.0/17",              
       }
@@ -128,17 +133,27 @@ variable "vpc_config" {
       "secondary_ranges" :{
         "gke-master" : "10.2.4.0/24",        
         "proxy" : "10.2.5.0/24",
-        "psc" : "10.2.6.0/24",
+        "psc" : {
+          "psc1" : "10.2.6.0/26",
+          "psc2" : "10.2.6.64/26",
+          "psc3" : "10.2.6.128/26",
+          "psc4" : "10.2.6.192/26"
+        },        
         "services" : "10.2.16.0/20",
         "pods" : "10.2.128.0/17", 
       }      
     },
     "europe-north1" : {
-      "vpc_subnet_cidr" : "10.3.0.0/22"
+      "vpc_subnet_cidr" : "10.3.0.0/22",
       "secondary_ranges" :{
         "gke-master" : "10.3.4.0/24",        
         "proxy" : "10.3.5.0/24",
-        "psc" : "10.3.6.0/24",
+        "psc" : {
+          "psc1" : "10.3.6.0/26",
+          "psc2" : "10.3.6.64/26",
+          "psc3" : "10.3.6.128/26",
+          "psc4" : "10.3.6.192/26"
+        },        
         "services" : "10.3.16.0/20",
         "pods" : "10.3.128.0/17", 
       }      
@@ -148,7 +163,12 @@ variable "vpc_config" {
       "secondary_ranges" :{
         "gke-master" : "10.4.4.0/24",        
         "proxy" : "10.4.5.0/24",
-        "psc" : "10.4.6.0/24",
+        "psc" : {
+          "psc1" : "10.4.6.0/26",
+          "psc2" : "10.4.6.64/26",
+          "psc3" : "10.4.6.128/26",
+          "psc4" : "10.4.6.192/26"
+        },        
         "services" : "10.4.16.0/20",
         "pods" : "10.4.128.0/17", 
       }      
@@ -158,7 +178,12 @@ variable "vpc_config" {
       "secondary_ranges" :{
         "gke-master" : "10.5.4.0/24",        
         "proxy" : "10.5.5.0/24",
-        "psc" : "10.5.6.0/24",
+        "psc" : {
+          "psc1" : "10.5.6.0/26",
+          "psc2" : "10.5.6.64/26",
+          "psc3" : "10.5.6.128/26",
+          "psc4" : "10.5.6.192/26"
+        },
         "services" : "10.5.16.0/20",
         "pods" : "10.5.128.0/17", 
       }      
