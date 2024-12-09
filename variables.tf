@@ -100,7 +100,7 @@ variable "firewall_config" {
     },
     "allow-custom": {
       "protocol" : "tcp",
-      "ports": ["8080","3000","2222"],
+      "ports": ["8080","3000","2222","8443"],
       "tags": ["custom"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",

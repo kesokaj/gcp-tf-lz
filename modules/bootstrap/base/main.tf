@@ -47,8 +47,9 @@ resource "google_service_account" "minimal_sa" {
   depends_on = [
     google_project.x,
     google_project_service.x
-  ]  
-  account_id   = "${google_project.x.number}-minimal"
+  ]
+  project = google_project.x.project_id
+  account_id   = "minimal-sa-${google_project.x.number}"
   display_name = "Minimal SA"
 }
 
