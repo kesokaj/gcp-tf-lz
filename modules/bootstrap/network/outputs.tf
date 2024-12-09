@@ -10,6 +10,10 @@ output "subnet" {
   value = values(google_compute_subnetwork.x)[*].name
 }
 
-output "proxy" {
-  value = values(google_compute_subnetwork.proxy)[*].name
+output "rmproxy" {
+  value = values(google_compute_subnetwork.rmproxy)[*].name
+}
+
+output "glproxy" {
+  value = values(google_compute_subnetwork.glproxy)[*].name
 }

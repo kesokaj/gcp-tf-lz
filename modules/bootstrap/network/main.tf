@@ -58,11 +58,11 @@ resource "google_compute_subnetwork" "x" {
 }
 
 ### PROXY ONLY NETWORK (GCLB INTERNAL)
-resource "google_compute_subnetwork" "proxy" {
+resource "google_compute_subnetwork" "rmproxy" {
   provider      = google-beta
   for_each      = var.vpc_config
   name          = "rmp-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.proxy
+  ip_cidr_range = each.value.secondary_ranges.rmproxy
   region        = each.key
   project       = var.project_id
   purpose       = "REGIONAL_MANAGED_PROXY"
@@ -70,12 +70,25 @@ resource "google_compute_subnetwork" "proxy" {
   network       = google_compute_network.x.id
 }
 
-### PSC ONLY NETWORK (I DONT LIKE THIS SETUP. WILL FIX IN THE FUTURE)
-resource "google_compute_subnetwork" "psc1" {
+### PROXY ONLY NETWORK (GCLB GLOBAL)
+resource "google_compute_subnetwork" "glproxy" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "psc1-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.psc.psc1
+  name          = "glp-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.glproxy
+  region        = each.key
+  project       = var.project_id
+  purpose       = "GLOBAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+  network       = google_compute_network.x.id
+}
+
+### PSC ONLY NETWORK 
+resource "google_compute_subnetwork" "psc" {
+  provider      = google-beta
+  for_each      = var.vpc_config
+  name          = "psc-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.psc
   region        = each.key
   project       = var.project_id
   purpose       = "PRIVATE_SERVICE_CONNECT"
@@ -83,38 +96,15 @@ resource "google_compute_subnetwork" "psc1" {
   network       = google_compute_network.x.id
 }
 
-resource "google_compute_subnetwork" "psc2" {
+### PRIVATE NAT ONLY NETWORK 
+resource "google_compute_subnetwork" "pnat" {
   provider      = google-beta
   for_each      = var.vpc_config
-  name          = "psc2-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.psc.psc2
+  name          = "pnat-${each.key}"
+  ip_cidr_range = each.value.secondary_ranges.pnat
   region        = each.key
   project       = var.project_id
-  purpose       = "PRIVATE_SERVICE_CONNECT"
-  role          = "ACTIVE"
-  network       = google_compute_network.x.id
-}
-
-resource "google_compute_subnetwork" "psc3" {
-  provider      = google-beta
-  for_each      = var.vpc_config
-  name          = "psc3-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.psc.psc3
-  region        = each.key
-  project       = var.project_id
-  purpose       = "PRIVATE_SERVICE_CONNECT"
-  role          = "ACTIVE"
-  network       = google_compute_network.x.id
-}
-
-resource "google_compute_subnetwork" "psc4" {
-  provider      = google-beta
-  for_each      = var.vpc_config
-  name          = "psc4-${each.key}"
-  ip_cidr_range = each.value.secondary_ranges.psc.psc4
-  region        = each.key
-  project       = var.project_id
-  purpose       = "PRIVATE_SERVICE_CONNECT"
+  purpose       = "PRIVATE_NAT"
   role          = "ACTIVE"
   network       = google_compute_network.x.id
 }

@@ -116,14 +116,10 @@ variable "vpc_config" {
     "us-central1" : {
       "vpc_subnet_cidr" : "10.1.0.0/22"
       "secondary_ranges" :{
-        "gke-master" : "10.1.4.0/24",        
-        "proxy" : "10.1.5.0/24",
-        "psc" : {
-          "psc1" : "10.1.6.0/26",
-          "psc2" : "10.1.6.64/26",
-          "psc3" : "10.1.6.128/26",
-          "psc4" : "10.1.6.192/26"
-        },        
+        "psc" : "10.1.4.0/26",        
+        "glproxy" : "10.1.5.0/25",
+        "rmproxy" : "10.1.5.128/25",
+        "pnat" : "10.1.6.0/24",       
         "services" : "10.1.16.0/20",
         "pods" : "10.1.128.0/17",              
       }
@@ -131,14 +127,10 @@ variable "vpc_config" {
     "europe-west1" : {
       "vpc_subnet_cidr" : "10.2.0.0/22"
       "secondary_ranges" :{
-        "gke-master" : "10.2.4.0/24",        
-        "proxy" : "10.2.5.0/24",
-        "psc" : {
-          "psc1" : "10.2.6.0/26",
-          "psc2" : "10.2.6.64/26",
-          "psc3" : "10.2.6.128/26",
-          "psc4" : "10.2.6.192/26"
-        },        
+        "psc" : "10.2.4.0/26",        
+        "glproxy" : "10.2.5.0/25",
+        "rmproxy" : "10.2.5.128/25",
+        "pnat" : "10.2.6.0/24",       
         "services" : "10.2.16.0/20",
         "pods" : "10.2.128.0/17", 
       }      
@@ -146,14 +138,10 @@ variable "vpc_config" {
     "europe-north1" : {
       "vpc_subnet_cidr" : "10.3.0.0/22",
       "secondary_ranges" :{
-        "gke-master" : "10.3.4.0/24",        
-        "proxy" : "10.3.5.0/24",
-        "psc" : {
-          "psc1" : "10.3.6.0/26",
-          "psc2" : "10.3.6.64/26",
-          "psc3" : "10.3.6.128/26",
-          "psc4" : "10.3.6.192/26"
-        },        
+        "psc" : "10.3.4.0/26",        
+        "glproxy" : "10.3.5.0/25",
+        "rmproxy" : "10.3.5.128/25",
+        "pnat" : "10.3.6.0/24",
         "services" : "10.3.16.0/20",
         "pods" : "10.3.128.0/17", 
       }      
@@ -161,14 +149,10 @@ variable "vpc_config" {
     "asia-east1" : {
       "vpc_subnet_cidr" : "10.4.0.0/22"
       "secondary_ranges" :{
-        "gke-master" : "10.4.4.0/24",        
-        "proxy" : "10.4.5.0/24",
-        "psc" : {
-          "psc1" : "10.4.6.0/26",
-          "psc2" : "10.4.6.64/26",
-          "psc3" : "10.4.6.128/26",
-          "psc4" : "10.4.6.192/26"
-        },        
+        "psc" : "10.4.4.0/26",        
+        "glproxy" : "10.4.5.0/25",
+        "rmproxy" : "10.4.5.128/25",
+        "pnat" : "10.4.6.0/24",       
         "services" : "10.4.16.0/20",
         "pods" : "10.4.128.0/17", 
       }      
@@ -176,16 +160,45 @@ variable "vpc_config" {
     "europe-west4" : {
       "vpc_subnet_cidr" : "10.5.0.0/22"
       "secondary_ranges" :{
-        "gke-master" : "10.5.4.0/24",        
-        "proxy" : "10.5.5.0/24",
-        "psc" : {
-          "psc1" : "10.5.6.0/26",
-          "psc2" : "10.5.6.64/26",
-          "psc3" : "10.5.6.128/26",
-          "psc4" : "10.5.6.192/26"
-        },
+        "psc" : "10.5.4.0/26",        
+        "glproxy" : "10.5.5.0/25",
+        "rmproxy" : "10.5.5.128/25",
+        "pnat" :  "10.5.6.0/24",
         "services" : "10.5.16.0/20",
         "pods" : "10.5.128.0/17", 
+      }      
+    },
+    "australia-southeast1" : {
+      "vpc_subnet_cidr" : "10.6.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.6.4.0/26",        
+        "glproxy" : "10.6.5.0/25",
+        "rmproxy" : "10.6.5.128/25",
+        "pnat" :  "10.6.6.0/24",
+        "services" : "10.6.16.0/20",
+        "pods" : "10.6.128.0/17", 
+      }      
+    },
+    "africa-south1" : {
+      "vpc_subnet_cidr" : "10.7.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.7.4.0/26",        
+        "glproxy" : "10.7.5.0/25",
+        "rmproxy" : "10.7.5.128/25",
+        "pnat" :  "10.7.6.0/24",
+        "services" : "10.7.16.0/20",
+        "pods" : "10.7.128.0/17", 
+      }      
+    },
+    "southamerica-east1" : {
+      "vpc_subnet_cidr" : "10.8.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.8.4.0/26",        
+        "glproxy" : "10.8.5.0/25",
+        "rmproxy" : "10.8.5.128/25",
+        "pnat" :  "10.8.6.0/24",
+        "services" : "10.8.16.0/20",
+        "pods" : "10.8.128.0/17", 
       }      
     }        
   }
@@ -245,7 +258,7 @@ variable "service_list" {
     "servicenetworking.googleapis.com",  # Service Networking - For connecting, securing, and observing services
     "servicedirectory.googleapis.com",  # Service Directory - For service discovery and management
     "networkconnectivity.googleapis.com",  # Network Connectivity - For managing network connections across your infrastructure
-    #"cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
+    "cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
     "cloudquotas.googleapis.com", # Enable quota metrics in the console - For viewing and managing resource quotas
     "logging.googleapis.com",    # Cloud Logging - For collecting, storing, and analyzing log data
     "monitoring.googleapis.com",  # Cloud Monitoring - For monitoring the performance and availability of your applications and infrastructure
