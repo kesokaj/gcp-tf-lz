@@ -43,7 +43,16 @@ resource "google_project_organization_policy" "x" {
   }
 }
 
-resource "google_project_iam_member" "compute_svc_default" {
+resource "google_service_account" "minimal_sa" {
+  depends_on = [
+    google_project.x,
+    google_project_service.x
+  ]  
+  account_id   = "${google_project.x.number}-minimal"
+  display_name = "Minimal SA"
+}
+
+resource "google_project_iam_member" "compute_sa_role" {
   depends_on = [
     google_project.x,
     google_project_service.x
@@ -52,3 +61,18 @@ resource "google_project_iam_member" "compute_svc_default" {
   role    = "roles/owner"
   member = "serviceAccount:${google_project.x.number}-compute@developer.gserviceaccount.com"
 }
+
+resource "google_project_iam_member" "minimal_sa_role" {
+  for_each = toset([
+    "roles/logging.bucketWriter",
+    "roles/monitoring.metricWriter",
+    "roles/cloudtrace.agent",
+    "roles/cloudsql.client",
+    "roles/cloudprofiler.agent",
+    "roles/storage.objectViewer"
+  ])
+  role = each.key
+  member = "serviceAccount:${google_service_account.minimal_sa.email}"
+  project = google_project.x.project_id
+}
+
