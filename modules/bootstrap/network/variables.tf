@@ -6,6 +6,10 @@ variable "alias" {
   type = string
 }
 
+variable "alias_id" {
+  type = string
+}
+
 variable "vpc_config" {
   type        = map(any)
   description = "Regions for VPC Subnets to be created"

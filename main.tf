@@ -10,6 +10,7 @@ module "network" {
   depends_on = [ module.base ]  
   source = "./modules/bootstrap/network"
   alias = module.base.alias
+  alias_id = module.base.alias_id
   project_id = module.base.project_id
   vpc_config = var.vpc_config
   firewall_config = var.firewall_config

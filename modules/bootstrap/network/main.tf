@@ -3,7 +3,7 @@
 resource "google_compute_network" "x" {
   provider                      = google-beta
   project                       = var.project_id
-  name                          = "${var.alias}"
+  name                          = "${var.alias_id}"
   auto_create_subnetworks       = false
   mtu                           = 8896
   routing_mode                  = "GLOBAL"
@@ -162,4 +162,18 @@ resource "google_compute_router_nat" "x" {
     enable = var.logs_config.router.enable
     filter = var.logs_config.router.filter
   }  
+}
+
+## DNS
+resource "google_dns_managed_zone" "x" {
+  project     = var.project_id
+  name        = "${var.alias_id}"
+  dns_name    = "${var.alias_id}.internal."
+  visibility  = "private"
+
+  private_visibility_config {
+    networks {
+      network_url = google_compute_network.x.id
+    }
+  }
 }

@@ -291,7 +291,8 @@ variable "service_list" {
     "cloud.googleapis.com",       # Google Cloud APIs -  A general API for accessing various Google Cloud services
     "storage-component.googleapis.com",  # This likely refers to a lower-level API that handles specific components within Cloud Storage. It might be used for things like managing buckets, objects, and access control lists, but it's generally not used directly by end-users.
     "storage.googleapis.com",      # *This is the main API for interacting with Google Cloud Storage. It provides a high-level interface for storing and retrieving data in buckets.
-    "storageinsights.googleapis.com"   # This API is used for monitoring and analyzing your Cloud Storage usage. It can provide insights into things like storage costs, data growth, and access patterns.
+    "storageinsights.googleapis.com",   # This API is used for monitoring and analyzing your Cloud Storage usage. It can provide insights into things like storage costs, data growth, and access patterns.
+    "networksecurity.googleapis.com"
   ]
 }
 
