@@ -258,7 +258,7 @@ variable "service_list" {
     "servicenetworking.googleapis.com",  # Service Networking - For connecting, securing, and observing services
     "servicedirectory.googleapis.com",  # Service Directory - For service discovery and management
     "networkconnectivity.googleapis.com",  # Network Connectivity - For managing network connections across your infrastructure
-    "cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
+    #"cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
     "cloudquotas.googleapis.com", # Enable quota metrics in the console - For viewing and managing resource quotas
     "logging.googleapis.com",    # Cloud Logging - For collecting, storing, and analyzing log data
     "monitoring.googleapis.com",  # Cloud Monitoring - For monitoring the performance and availability of your applications and infrastructure
