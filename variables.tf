@@ -32,7 +32,7 @@ variable "firewall_config" {
       "tags": [],
       "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
       "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "500"
+      "priority" : "30000"
     },
     "allow-healthcheck-udp": {
       "protocol" : "udp",
@@ -40,7 +40,7 @@ variable "firewall_config" {
       "tags": [],
       "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
       "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "500"
+      "priority" : "30000"
     },    
     "allow-iap-tcp": {
       "protocol" : "tcp",
@@ -48,7 +48,7 @@ variable "firewall_config" {
       "ports": ["0-65535"],
       "source" : ["35.235.240.0/20"],
       "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "500"
+      "priority" : "30000"
     },
     "allow-iap-udp": {
       "protocol" : "udp",
@@ -56,7 +56,7 @@ variable "firewall_config" {
       "ports": ["0-65535"],
       "source" : ["35.235.240.0/20"],
       "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "500"
+      "priority" : "30000"
     },    
     "allow-icmp": {
       "protocol" : "icmp",
@@ -64,7 +64,7 @@ variable "firewall_config" {
       "tags": [],      
       "source" : ["0.0.0.0/0"],
       "logs" : "EXCLUDE_ALL_METADATA",
-      "priority" : "65535"
+      "priority" : "65534"
     },
     "allow-internal-tcp": {
       "protocol" : "tcp",
@@ -72,7 +72,7 @@ variable "firewall_config" {
       "tags": [],      
       "source" : ["10.0.0.0/8"],
       "logs" : "EXCLUDE_ALL_METADATA",
-      "priority" : "65535"
+      "priority" : "65534"
     },
     "allow-internal-udp": {
       "protocol" : "udp",
@@ -80,7 +80,7 @@ variable "firewall_config" {
       "tags": [],      
       "source" : ["10.0.0.0/8"],
       "logs" : "EXCLUDE_ALL_METADATA",
-      "priority" : "65535"
+      "priority" : "65534"
     },    
     "allow-http": {
       "protocol" : "tcp",
@@ -258,7 +258,7 @@ variable "service_list" {
     "servicenetworking.googleapis.com",  # Service Networking - For connecting, securing, and observing services
     "servicedirectory.googleapis.com",  # Service Directory - For service discovery and management
     "networkconnectivity.googleapis.com",  # Network Connectivity - For managing network connections across your infrastructure
-    #"cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
+    "cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
     "cloudquotas.googleapis.com", # Enable quota metrics in the console - For viewing and managing resource quotas
     "logging.googleapis.com",    # Cloud Logging - For collecting, storing, and analyzing log data
     "monitoring.googleapis.com",  # Cloud Monitoring - For monitoring the performance and availability of your applications and infrastructure
@@ -292,7 +292,9 @@ variable "service_list" {
     "storage-component.googleapis.com",  # This likely refers to a lower-level API that handles specific components within Cloud Storage. It might be used for things like managing buckets, objects, and access control lists, but it's generally not used directly by end-users.
     "storage.googleapis.com",      # *This is the main API for interacting with Google Cloud Storage. It provides a high-level interface for storing and retrieving data in buckets.
     "storageinsights.googleapis.com",   # This API is used for monitoring and analyzing your Cloud Storage usage. It can provide insights into things like storage costs, data growth, and access patterns.
-    "networksecurity.googleapis.com"
+    "networksecurity.googleapis.com",
+    "recommender.googleapis.com",
+    "cloudasset.googleapis.com"
   ]
 }
 
