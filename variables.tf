@@ -63,7 +63,7 @@ variable "firewall_config" {
       "ports": [],
       "tags": [],      
       "source" : ["0.0.0.0/0"],
-      "logs" : "EXCLUDE_ALL_METADATA",
+      "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "65534"
     },
     "allow-internal-tcp": {
@@ -71,7 +71,7 @@ variable "firewall_config" {
       "ports": ["0-65535"],
       "tags": [],      
       "source" : ["10.0.0.0/8"],
-      "logs" : "EXCLUDE_ALL_METADATA",
+      "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "65534"
     },
     "allow-internal-udp": {
@@ -79,7 +79,7 @@ variable "firewall_config" {
       "ports": ["0-65535"],
       "tags": [],      
       "source" : ["10.0.0.0/8"],
-      "logs" : "EXCLUDE_ALL_METADATA",
+      "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "65534"
     },    
     "allow-http": {
@@ -200,7 +200,18 @@ variable "vpc_config" {
         "services" : "10.8.16.0/20",
         "pods" : "10.8.128.0/17", 
       }      
-    }        
+    },
+    "europe-north2" : {
+      "vpc_subnet_cidr" : "10.9.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.9.4.0/26",        
+        "glproxy" : "10.9.5.0/25",
+        "rmproxy" : "10.9.5.128/25",
+        "pnat" :  "10.9.6.0/24",
+        "services" : "10.9.16.0/20",
+        "pods" : "10.9.128.0/17", 
+      }      
+    }           
   }
 }
 

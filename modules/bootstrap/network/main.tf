@@ -6,7 +6,7 @@ resource "google_compute_network" "x" {
   name                          = "${var.alias_id}"
   auto_create_subnetworks       = false
   mtu                           = 8896
-  routing_mode                  = "GLOBAL"
+  routing_mode                  = "REGIONAL"
   bgp_best_path_selection_mode  = "STANDARD"
   bgp_always_compare_med        = true
   bgp_inter_region_cost         = "ADD_COST_TO_MED"
