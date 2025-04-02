@@ -135,72 +135,72 @@ variable "vpc_config" {
         "pods" : "10.2.128.0/17", 
       }      
     },
-    # "europe-north1" : {
-    #   "vpc_subnet_cidr" : "10.3.0.0/22",
-    #   "secondary_ranges" :{
-    #     "psc" : "10.3.4.0/26",        
-    #     "glproxy" : "10.3.5.0/25",
-    #     "rmproxy" : "10.3.5.128/25",
-    #     "pnat" : "10.3.6.0/24",
-    #     "services" : "10.3.16.0/20",
-    #     "pods" : "10.3.128.0/17", 
-    #   }      
-    # },
-    # "asia-east1" : {
-    #   "vpc_subnet_cidr" : "10.4.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.4.4.0/26",        
-    #     "glproxy" : "10.4.5.0/25",
-    #     "rmproxy" : "10.4.5.128/25",
-    #     "pnat" : "10.4.6.0/24",       
-    #     "services" : "10.4.16.0/20",
-    #     "pods" : "10.4.128.0/17", 
-    #   }      
-    # },
-    # "europe-west4" : {
-    #   "vpc_subnet_cidr" : "10.5.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.5.4.0/26",        
-    #     "glproxy" : "10.5.5.0/25",
-    #     "rmproxy" : "10.5.5.128/25",
-    #     "pnat" :  "10.5.6.0/24",
-    #     "services" : "10.5.16.0/20",
-    #     "pods" : "10.5.128.0/17", 
-    #   }      
-    # },
-    # "australia-southeast1" : {
-    #   "vpc_subnet_cidr" : "10.6.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.6.4.0/26",        
-    #     "glproxy" : "10.6.5.0/25",
-    #     "rmproxy" : "10.6.5.128/25",
-    #     "pnat" :  "10.6.6.0/24",
-    #     "services" : "10.6.16.0/20",
-    #     "pods" : "10.6.128.0/17", 
-    #   }      
-    # },
-    # "africa-south1" : {
-    #   "vpc_subnet_cidr" : "10.7.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.7.4.0/26",        
-    #     "glproxy" : "10.7.5.0/25",
-    #     "rmproxy" : "10.7.5.128/25",
-    #     "pnat" :  "10.7.6.0/24",
-    #     "services" : "10.7.16.0/20",
-    #     "pods" : "10.7.128.0/17", 
-    #   }      
-    # },
-    # "southamerica-east1" : {
-    #   "vpc_subnet_cidr" : "10.8.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.8.4.0/26",        
-    #     "glproxy" : "10.8.5.0/25",
-    #     "rmproxy" : "10.8.5.128/25",
-    #     "pnat" :  "10.8.6.0/24",
-    #     "services" : "10.8.16.0/20",
-    #     "pods" : "10.8.128.0/17", 
-    #   }      
-    # },
+    "europe-north1" : {
+      "vpc_subnet_cidr" : "10.3.0.0/22",
+      "secondary_ranges" :{
+        "psc" : "10.3.4.0/26",        
+        "glproxy" : "10.3.5.0/25",
+        "rmproxy" : "10.3.5.128/25",
+        "pnat" : "10.3.6.0/24",
+        "services" : "10.3.16.0/20",
+        "pods" : "10.3.128.0/17", 
+      }      
+    },
+    "asia-east1" : {
+      "vpc_subnet_cidr" : "10.4.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.4.4.0/26",        
+        "glproxy" : "10.4.5.0/25",
+        "rmproxy" : "10.4.5.128/25",
+        "pnat" : "10.4.6.0/24",       
+        "services" : "10.4.16.0/20",
+        "pods" : "10.4.128.0/17", 
+      }      
+    },
+    "europe-west4" : {
+      "vpc_subnet_cidr" : "10.5.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.5.4.0/26",        
+        "glproxy" : "10.5.5.0/25",
+        "rmproxy" : "10.5.5.128/25",
+        "pnat" :  "10.5.6.0/24",
+        "services" : "10.5.16.0/20",
+        "pods" : "10.5.128.0/17", 
+      }      
+    },
+    "australia-southeast1" : {
+      "vpc_subnet_cidr" : "10.6.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.6.4.0/26",        
+        "glproxy" : "10.6.5.0/25",
+        "rmproxy" : "10.6.5.128/25",
+        "pnat" :  "10.6.6.0/24",
+        "services" : "10.6.16.0/20",
+        "pods" : "10.6.128.0/17", 
+      }      
+    },
+    "africa-south1" : {
+      "vpc_subnet_cidr" : "10.7.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.7.4.0/26",        
+        "glproxy" : "10.7.5.0/25",
+        "rmproxy" : "10.7.5.128/25",
+        "pnat" :  "10.7.6.0/24",
+        "services" : "10.7.16.0/20",
+        "pods" : "10.7.128.0/17", 
+      }      
+    },
+    "southamerica-east1" : {
+      "vpc_subnet_cidr" : "10.8.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.8.4.0/26",        
+        "glproxy" : "10.8.5.0/25",
+        "rmproxy" : "10.8.5.128/25",
+        "pnat" :  "10.8.6.0/24",
+        "services" : "10.8.16.0/20",
+        "pods" : "10.8.128.0/17", 
+      }      
+    },
     "europe-north2" : {
       "vpc_subnet_cidr" : "10.9.0.0/22"
       "secondary_ranges" :{
