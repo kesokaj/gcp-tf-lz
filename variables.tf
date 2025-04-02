@@ -306,7 +306,8 @@ variable "service_list" {
     "networksecurity.googleapis.com",
     "recommender.googleapis.com",
     "cloudasset.googleapis.com",
-    "maintenance.googleapis.com"
+    "maintenance.googleapis.com",
+    "serviceusage.googleapis.com"
   ]
 }
 
