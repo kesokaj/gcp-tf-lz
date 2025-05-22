@@ -113,17 +113,17 @@ variable "vpc_config" {
   type        = map(any)
   description = "Regions for VPC Subnets to be created"
   default = {
-    # "us-central1" : {
-    #   "vpc_subnet_cidr" : "10.1.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.1.4.0/26",        
-    #     "glproxy" : "10.1.5.0/25",
-    #     "rmproxy" : "10.1.5.128/25",
-    #     "pnat" : "10.1.6.0/24",       
-    #     "services" : "10.1.16.0/20",
-    #     "pods" : "10.1.128.0/17",              
-    #   }
-    # },
+    "us-central1" : {
+      "vpc_subnet_cidr" : "10.1.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.1.4.0/26",        
+        "glproxy" : "10.1.5.0/25",
+        "rmproxy" : "10.1.5.128/25",
+        "pnat" : "10.1.6.0/24",       
+        "services" : "10.1.16.0/20",
+        "pods" : "10.1.128.0/17",              
+      }
+    },
     "europe-west1" : {
       "vpc_subnet_cidr" : "10.2.0.0/22"
       "secondary_ranges" :{
@@ -157,17 +157,17 @@ variable "vpc_config" {
     #     "pods" : "10.4.128.0/17", 
     #   }      
     # },
-    # "europe-west4" : {
-    #   "vpc_subnet_cidr" : "10.5.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.5.4.0/26",        
-    #     "glproxy" : "10.5.5.0/25",
-    #     "rmproxy" : "10.5.5.128/25",
-    #     "pnat" :  "10.5.6.0/24",
-    #     "services" : "10.5.16.0/20",
-    #     "pods" : "10.5.128.0/17", 
-    #   }      
-    # },
+    "europe-west4" : {
+      "vpc_subnet_cidr" : "10.5.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.5.4.0/26",        
+        "glproxy" : "10.5.5.0/25",
+        "rmproxy" : "10.5.5.128/25",
+        "pnat" :  "10.5.6.0/24",
+        "services" : "10.5.16.0/20",
+        "pods" : "10.5.128.0/17", 
+      }      
+    },
     # "australia-southeast1" : {
     #   "vpc_subnet_cidr" : "10.6.0.0/22"
     #   "secondary_ranges" :{
@@ -190,17 +190,17 @@ variable "vpc_config" {
     #     "pods" : "10.7.128.0/17", 
     #   }      
     # },
-    # "southamerica-east1" : {
-    #   "vpc_subnet_cidr" : "10.8.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.8.4.0/26",        
-    #     "glproxy" : "10.8.5.0/25",
-    #     "rmproxy" : "10.8.5.128/25",
-    #     "pnat" :  "10.8.6.0/24",
-    #     "services" : "10.8.16.0/20",
-    #     "pods" : "10.8.128.0/17", 
-    #   }      
-    # },
+    "southamerica-east1" : {
+      "vpc_subnet_cidr" : "10.8.0.0/22"
+      "secondary_ranges" :{
+        "psc" : "10.8.4.0/26",        
+        "glproxy" : "10.8.5.0/25",
+        "rmproxy" : "10.8.5.128/25",
+        "pnat" :  "10.8.6.0/24",
+        "services" : "10.8.16.0/20",
+        "pods" : "10.8.128.0/17", 
+      }      
+    },
     "europe-north2" : {
       "vpc_subnet_cidr" : "10.9.0.0/22"
       "secondary_ranges" :{
@@ -307,7 +307,15 @@ variable "service_list" {
     "recommender.googleapis.com",
     "cloudasset.googleapis.com",
     "maintenance.googleapis.com",
-    "serviceusage.googleapis.com"
+    "serviceusage.googleapis.com",
+    "generativelanguage.googleapis.com",
+    "geminicloudassist.googleapis.com",
+    "iap.googleapis.com",
+    "run.googleapis.com",
+    "clouddeploy.googleapis.com",
+    "runapps.googleapis.com",
+    "container.googleapis.com",
+    "gkehub.googleapis.com"
   ]
 }
 

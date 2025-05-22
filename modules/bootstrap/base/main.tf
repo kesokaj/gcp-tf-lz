@@ -65,12 +65,12 @@ resource "google_project_iam_member" "compute_sa_role" {
 
 resource "google_project_iam_member" "minimal_sa_role" {
   for_each = toset([
-    "roles/logging.bucketWriter",
-    "roles/monitoring.metricWriter",
+    "roles/container.defaultNodeServiceAccount",
     "roles/cloudtrace.agent",
     "roles/cloudsql.client",
     "roles/cloudprofiler.agent",
-    "roles/storage.objectViewer"
+    "roles/storage.objectViewer",
+    "roles/iam.serviceAccountUser"
   ])
   role = each.key
   member = "serviceAccount:${google_service_account.minimal_sa.email}"
