@@ -256,7 +256,8 @@ variable "org_policy_list" {
     "constraints/compute.disableSerialPortAccess",  # Disables serial port access for Compute Engine VMs
     "constraints/compute.vmCanIpForward",  # Controls IP forwarding for Compute Engine VMs
     "constraints/compute.restrictProtocolForwardingCreationForTypes",  # Restricts the creation of protocol forwarding rules for specific VM types
-    "constraints/cloudfunctions.allowedIngressSettings"
+    "constraints/cloudfunctions.allowedIngressSettings",
+    "constraints/run.managed.requireInvokerIam"
   ]
 }
 
