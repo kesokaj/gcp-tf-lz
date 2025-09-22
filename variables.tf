@@ -1,223 +1,103 @@
 variable "billing_id" {
-  type = string
+  type        = string
+  description = "The ID of the billing account to be associated with the project."
 }
 
 variable "org_id" {
-  type = string
+  type        = string
+  description = "The ID of the organization to which the project belongs."
+}
+
+variable "regions" {
+  description = "A list of GCP regions where the VPC and subnets will be created."
+  type        = list(string)
+  default     = ["us-central1", "europe-west1", "europe-west2"]
 }
 
 variable "firewall_config" {
-  type = map(any)
-  description = "Firewall rules in VPC"
+  type        = map(any)
+  description = "A map of firewall rules to be created in the VPC. The keys are the rule names and the values are the rule configurations."
   default = {
-    "allow-rdp-tcp": {
-      "protocol" : "tcp",
+    "allow-rdp-tcp" : {
+      "protocol" : ["tcp"],
       "ports" : ["3389"],
-      "tags": ["rdp"],
+      "tags" : ["rdp"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
     },
-    "allow-ssh-tcp": {
-      "protocol" : "tcp",
+    "allow-ssh-tcp" : {
+      "protocol" : ["tcp"],
       "ports" : ["22"],
-      "tags": ["ssh"],
+      "tags" : ["ssh"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
     },
-    "allow-healthcheck-tcp": {
-      "protocol" : "tcp",
-      "ports": ["0-65535"],
-      "tags": [],
-      "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
+    "allow-healthcheck" : {
+      "protocol" : ["tcp", "udp"],
+      "ports" : ["0-65535"],
+      "tags" : [],
+      "source" : ["130.211.0.0/22", "35.191.0.0/16", "209.85.152.0/22", "209.85.204.0/22"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "30000"
     },
-    "allow-healthcheck-udp": {
-      "protocol" : "udp",
-      "ports": ["0-65535"],
-      "tags": [],
-      "source" : ["130.211.0.0/22","35.191.0.0/16","209.85.152.0/22","209.85.204.0/22"],
-      "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "30000"
-    },    
-    "allow-iap-tcp": {
-      "protocol" : "tcp",
-      "tags": [],      
-      "ports": ["0-65535"],
+    "allow-iap" : {
+      "protocol" : ["tcp", "udp"],
+      "tags" : [],
+      "ports" : ["0-65535"],
       "source" : ["35.235.240.0/20"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "30000"
     },
-    "allow-iap-udp": {
-      "protocol" : "udp",
-      "tags": [],      
-      "ports": ["0-65535"],
-      "source" : ["35.235.240.0/20"],
-      "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "30000"
-    },    
-    "allow-icmp": {
-      "protocol" : "icmp",
-      "ports": [],
-      "tags": [],      
+    "allow-icmp" : {
+      "protocol" : ["icmp"],
+      "ports" : [],
+      "tags" : [],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "65534"
     },
-    "allow-internal-tcp": {
-      "protocol" : "tcp",
-      "ports": ["0-65535"],
-      "tags": [],      
+    "allow-internal" : {
+      "protocol" : ["tcp", "udp"],
+      "ports" : ["0-65535"],
+      "tags" : [],
       "source" : ["10.0.0.0/8"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "65534"
     },
-    "allow-internal-udp": {
-      "protocol" : "udp",
-      "ports": ["0-65535"],
-      "tags": [],      
-      "source" : ["10.0.0.0/8"],
-      "logs" : "INCLUDE_ALL_METADATA",
-      "priority" : "65534"
-    },    
-    "allow-http": {
-      "protocol" : "tcp",
-      "ports": ["80"],
-      "tags": ["http"],
+    "allow-http" : {
+      "protocol" : ["tcp"],
+      "ports" : ["80"],
+      "tags" : ["http"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
     },
-    "allow-https": {
-      "protocol" : "tcp",
-      "ports": ["443"],
-      "tags": ["https"],
+    "allow-https" : {
+      "protocol" : ["tcp"],
+      "ports" : ["443"],
+      "tags" : ["https"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
     },
-    "allow-custom": {
-      "protocol" : "tcp",
-      "ports": ["8080","3000","2222","8443"],
-      "tags": ["custom"],
+    "allow-custom" : {
+      "protocol" : ["tcp"],
+      "ports" : ["8080", "3000", "2222", "8443"],
+      "tags" : ["custom"],
       "source" : ["0.0.0.0/0"],
       "logs" : "INCLUDE_ALL_METADATA",
       "priority" : "100"
-    },       
+    }
   }
 }
 
-variable "vpc_config" {
-  type        = map(any)
-  description = "Regions for VPC Subnets to be created"
-  default = {
-     "us-central1" : {
-       "vpc_subnet_cidr" : "10.1.0.0/22"
-       "secondary_ranges" :{
-         "psc" : "10.1.4.0/26",        
-         "glproxy" : "10.1.5.0/25",
-         "rmproxy" : "10.1.5.128/25",
-         "pnat" : "10.1.6.0/24",       
-         "services" : "10.1.16.0/20",
-         "pods" : "10.1.128.0/17",              
-       }
-     },
-    "europe-west1" : {
-      "vpc_subnet_cidr" : "10.2.0.0/22"
-      "secondary_ranges" :{
-        "psc" : "10.2.4.0/26",        
-        "glproxy" : "10.2.5.0/25",
-        "rmproxy" : "10.2.5.128/25",
-        "pnat" : "10.2.6.0/24",       
-        "services" : "10.2.16.0/20",
-        "pods" : "10.2.128.0/17", 
-      }      
-    },
-    # "europe-north1" : {
-    #   "vpc_subnet_cidr" : "10.3.0.0/22",
-    #   "secondary_ranges" :{
-    #     "psc" : "10.3.4.0/26",        
-    #     "glproxy" : "10.3.5.0/25",
-    #     "rmproxy" : "10.3.5.128/25",
-    #     "pnat" : "10.3.6.0/24",
-    #     "services" : "10.3.16.0/20",
-    #     "pods" : "10.3.128.0/17", 
-    #   }      
-    # },
-    # "asia-east1" : {
-    #   "vpc_subnet_cidr" : "10.4.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.4.4.0/26",        
-    #     "glproxy" : "10.4.5.0/25",
-    #     "rmproxy" : "10.4.5.128/25",
-    #     "pnat" : "10.4.6.0/24",       
-    #     "services" : "10.4.16.0/20",
-    #     "pods" : "10.4.128.0/17", 
-    #   }      
-    # },
-    # "europe-west4" : {
-    #   "vpc_subnet_cidr" : "10.5.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.5.4.0/26",        
-    #     "glproxy" : "10.5.5.0/25",
-    #     "rmproxy" : "10.5.5.128/25",
-    #     "pnat" :  "10.5.6.0/24",
-    #     "services" : "10.5.16.0/20",
-    #     "pods" : "10.5.128.0/17", 
-    #   }      
-    # },
-    # "australia-southeast1" : {
-    #   "vpc_subnet_cidr" : "10.6.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.6.4.0/26",        
-    #     "glproxy" : "10.6.5.0/25",
-    #     "rmproxy" : "10.6.5.128/25",
-    #     "pnat" :  "10.6.6.0/24",
-    #     "services" : "10.6.16.0/20",
-    #     "pods" : "10.6.128.0/17", 
-    #   }      
-    # },
-    # "africa-south1" : {
-    #   "vpc_subnet_cidr" : "10.7.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.7.4.0/26",        
-    #     "glproxy" : "10.7.5.0/25",
-    #     "rmproxy" : "10.7.5.128/25",
-    #     "pnat" :  "10.7.6.0/24",
-    #     "services" : "10.7.16.0/20",
-    #     "pods" : "10.7.128.0/17", 
-    #   }      
-    # },
-    # "southamerica-east1" : {
-    #   "vpc_subnet_cidr" : "10.8.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.8.4.0/26",        
-    #     "glproxy" : "10.8.5.0/25",
-    #     "rmproxy" : "10.8.5.128/25",
-    #     "pnat" :  "10.8.6.0/24",
-    #     "services" : "10.8.16.0/20",
-    #     "pods" : "10.8.128.0/17", 
-    #   }      
-    # },
-    # "europe-north2" : {
-    #   "vpc_subnet_cidr" : "10.9.0.0/22"
-    #   "secondary_ranges" :{
-    #     "psc" : "10.9.4.0/26",        
-    #     "glproxy" : "10.9.5.0/25",
-    #     "rmproxy" : "10.9.5.128/25",
-    #     "pnat" :  "10.9.6.0/24",
-    #     "services" : "10.9.16.0/20",
-    #     "pods" : "10.9.128.0/17", 
-    #   }      
-    # }           
-  }
-}
+
 
 variable "logs_config" {
-  type = map(any)
-  description = "Logging from subnets (flowlogs)"
+  type        = map(any)
+  description = "A map of logging configurations for the VPC. The keys are the log types (e.g., 'subnet', 'router') and the values are the logging configurations."
   default = {
     "subnet" : {
       "interval" : "INTERVAL_15_MIN",
@@ -226,84 +106,97 @@ variable "logs_config" {
     },
     "router" : {
       "enable" : "true",
-      "filter" : "ALL" #ERRORS
+      "filter" : "ALL"
     }
   }
 }
 
 variable "peer_allocation" {
-  type = string
-  description = "Peering network for different services a /20 will be used"
-  default = "10.100.0.0"
+  type        = string
+  description = "The /20 CIDR block to be reserved for peering with other services."
+  default     = "10.100.0.0"
+}
+
+variable "router_asn" {
+  type        = number
+  description = "The BGP ASN for the Cloud Router."
+  default     = 64512
+}
+
+variable "vpc_supernet_cidr" {
+  type        = string
+  description = "The supernet CIDR block for the VPC. This will be divided into smaller subnets for each region."
+  default     = "10.0.0.0/8"
 }
 
 variable "org_policy_list" {
-  type = list(any)
+  type        = list(any)
+  description = "A list of organization policies to be applied to the project."
   default = [
-    "constraints/compute.requireOsLogin",  # Enforces OS Login on Compute Engine VMs for improved security
-    "constraints/compute.requireShieldedVm",  # Requires the use of Shielded VMs for enhanced VM security
-    "constraints/compute.trustedImageProjects",  # Defines a list of trusted projects for VM images
-    "constraints/compute.vmExternalIpAccess",  # Controls external IP access for Compute Engine VMs
-    "constraints/compute.disableInternetNetworkEndpointGroup",  # Disables the creation of internet-facing Network Endpoint Groups
-    "constraints/iam.disableServiceAccountKeyCreation",  # Prevents the creation of service account keys
-    "constraints/iam.disableServiceAccountCreation",  # Prevents the creation of service accounts
-    "constraints/compute.disableNestedVirtualization",  # Disables nested virtualization on Compute Engine VMs
-    "constraints/cloudfunctions.requireVPCConnector",  # Requires Cloud Functions to use VPC connectors for network access
-    "constraints/iam.allowedPolicyMemberDomains",  # Restricts the allowed domains for IAM policy members
-    "constraints/storage.uniformBucketLevelAccess",  # Enforces uniform bucket-level access for Cloud Storage buckets
-    "constraints/sql.restrictAuthorizedNetworks",  # Restricts authorized networks for Cloud SQL instances
-    "constraints/compute.disableSerialPortLogging",  # Disables serial port logging for Compute Engine VMs
-    "constraints/compute.disableSerialPortAccess",  # Disables serial port access for Compute Engine VMs
-    "constraints/compute.vmCanIpForward",  # Controls IP forwarding for Compute Engine VMs
-    "constraints/compute.restrictProtocolForwardingCreationForTypes",  # Restricts the creation of protocol forwarding rules for specific VM types
-    "constraints/cloudfunctions.allowedIngressSettings"
+    "constraints/compute.requireOsLogin",
+    "constraints/compute.requireShieldedVm",
+    "constraints/compute.trustedImageProjects",
+    "constraints/compute.vmExternalIpAccess",
+    "constraints/compute.disableInternetNetworkEndpointGroup",
+    "constraints/iam.disableServiceAccountKeyCreation",
+    "constraints/iam.disableServiceAccountCreation",
+    "constraints/compute.disableNestedVirtualization",
+    "constraints/cloudfunctions.requireVPCConnector",
+    "constraints/iam.allowedPolicyMemberDomains",
+    "constraints/storage.uniformBucketLevelAccess",
+    "constraints/sql.restrictAuthorizedNetworks",
+    "constraints/compute.disableSerialPortLogging",
+    "constraints/compute.disableSerialPortAccess",
+    "constraints/compute.vmCanIpForward",
+    "constraints/compute.restrictProtocolForwardingCreationForTypes"
   ]
 }
 
 variable "service_list" {
-  type = list(any)
+  type        = list(any)
+  description = "A list of APIs to be enabled on the project."
   default = [
-    "orgpolicy.googleapis.com",  # Organization Policy Service - For managing organization-wide policies and constraints
-    "dns.googleapis.com",        # Cloud DNS - For managing DNS records and zones
-    "compute.googleapis.com",     # Compute Engine - For creating and managing virtual machines
-    "networkmanagement.googleapis.com",  # Network Management - For network monitoring, troubleshooting, and optimization
-    "servicenetworking.googleapis.com",  # Service Networking - For connecting, securing, and observing services
-    "servicedirectory.googleapis.com",  # Service Directory - For service discovery and management
-    "networkconnectivity.googleapis.com",  # Network Connectivity - For managing network connections across your infrastructure
-    "cloudaicompanion.googleapis.com",  # Cloud AI Companion - (Commented out) For AI-powered assistance and automation
-    "cloudquotas.googleapis.com", # Enable quota metrics in the console - For viewing and managing resource quotas
-    "logging.googleapis.com",    # Cloud Logging - For collecting, storing, and analyzing log data
-    "monitoring.googleapis.com",  # Cloud Monitoring - For monitoring the performance and availability of your applications and infrastructure
-    "clouderrorreporting.googleapis.com",  # Cloud Error Reporting - For tracking and managing application errors
-    "cloudtrace.googleapis.com",  # Cloud Trace - For distributed tracing and debugging of applications
-    "opsconfigmonitoring.googleapis.com",  # Ops Config Monitoring - For monitoring the configuration of your systems
-    "servicehealth.googleapis.com",  # Service Health - For getting information about Google Cloud service health
-    "cloudlatencytest.googleapis.com",  # Cloud Latency Test - For measuring network latency to Google Cloud regions
-    "timeseriesinsights.googleapis.com",  # Time Series Insights - For storing, analyzing, and querying time series data
-    "checks.googleapis.com",      # Cloud Monitoring Checks - For creating and managing uptime checks
-    "cloudidentity.googleapis.com",  # Cloud Identity - For managing user identities and access control
-    "containersecurity.googleapis.com",  # Container Security - For securing your containerized applications
-    "certificatemanager.googleapis.com",  # Certificate Manager - For provisioning and managing SSL/TLS certificates
-    "artifactregistry.googleapis.com",  # Artifact Registry - For storing and managing build artifacts and dependencies
-    "cloudbuild.googleapis.com",   # Cloud Build - For building and deploying applications
-    "containerregistry.googleapis.com",  # Container Registry - For storing and managing Docker images
-    "osconfig.googleapis.com",     # OS Config - For managing and configuring operating systems
-    "bigqueryconnection.googleapis.com",  # BigQuery Connection - For connecting to BigQuery from external applications
-    "biglake.googleapis.com",     # BigLake - For managing and querying data lakes
-    "networkservices.googleapis.com",  # Network Services - For managing network services like load balancing and traffic management
-    "edgenetwork.googleapis.com",  # Edge Network - For deploying and managing applications at the edge of the network
-    "networktopology.googleapis.com",  # Network Topology - For visualizing and understanding your network topology
-    "vpcaccess.googleapis.com",    # VPC Access - For connecting to your VPC network from on-premises or other cloud environments
-    "tagmanager.googleapis.com",   # Tag Manager - For managing tags and resources
-    "pubsub.googleapis.com",      # Cloud Pub/Sub - For asynchronous messaging and data ingestion
-    "pubsublite.googleapis.com",  # Cloud Pub/Sub Lite - For cost-effective, high-throughput messaging
-    "cloudresourcemanager.googleapis.com",  # Cloud Resource Manager - For managing your cloud resources, including projects, folders, and organizations
-    "firewallinsights.googleapis.com",  # Firewall Insights - For analyzing firewall logs and traffic
-    "datastudio.googleapis.com",  # Data Studio - For creating interactive dashboards and reports
-    "cloud.googleapis.com",       # Google Cloud APIs -  A general API for accessing various Google Cloud services
-    "storage-component.googleapis.com",  # This likely refers to a lower-level API that handles specific components within Cloud Storage. It might be used for things like managing buckets, objects, and access control lists, but it's generally not used directly by end-users.
-    "storage.googleapis.com",      # *This is the main API for interacting with Google Cloud Storage. It provides a high-level interface for storing and retrieving data in buckets.
-    "storageinsights.googleapis.com",   # This API is used for monitoring and analyzing your Cloud Storage usage. It can provide insights into things like storage costs, data growth, and access patterns.
+    "orgpolicy.googleapis.com",
+    "dns.googleapis.com",
+    "compute.googleapis.com",
+    "networkmanagement.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "servicedirectory.googleapis.com",
+    "networkconnectivity.googleapis.com",
+    "cloudaicompanion.googleapis.com",
+    "cloudquotas.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com",
+    "clouderrorreporting.googleapis.com",
+    "cloudtrace.googleapis.com",
+    "opsconfigmonitoring.googleapis.com",
+    "servicehealth.googleapis.com",
+    "cloudlatencytest.googleapis.com",
+    "timeseriesinsights.googleapis.com",
+    "checks.googleapis.com",
+    "cloudidentity.googleapis.com",
+    "containersecurity.googleapis.com",
+    "certificatemanager.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "containerregistry.googleapis.com",
+    "osconfig.googleapis.com",
+    "bigqueryconnection.googleapis.com",
+    "biglake.googleapis.com",
+    "networkservices.googleapis.com",
+    "edgenetwork.googleapis.com",
+    "networktopology.googleapis.com",
+    "vpcaccess.googleapis.com",
+    "tagmanager.googleapis.com",
+    "pubsub.googleapis.com",
+    "pubsublite.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "firewallinsights.googleapis.com",
+    "datastudio.googleapis.com",
+    "cloud.googleapis.com",
+    "storage-component.googleapis.com",
+    "storage.googleapis.com",
+    "storageinsights.googleapis.com",
     "networksecurity.googleapis.com",
     "recommender.googleapis.com",
     "cloudasset.googleapis.com",
@@ -319,4 +212,3 @@ variable "service_list" {
     "gkehub.googleapis.com"
   ]
 }
-

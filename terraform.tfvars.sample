@@ -1,2 +1,3 @@
-billing_id = "" # Billing ID
-org_id = "" # Organization ID
+billing_id = "" 
+org_id = "" 
+regions    = ["us-central1", "europe-west1"]

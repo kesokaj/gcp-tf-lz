@@ -1,6 +1,6 @@
-#!/bin/bash
 
-# enable logging
+
+
 set -euxo pipefail
 
 GCP_USER=$(gcloud auth list --format="value(ACCOUNT)")
@@ -10,7 +10,7 @@ GCP_TOKEN=$(gcloud auth print-access-token)
 
 export GOOGLE_OAUTH_ACCESS_TOKEN=${GCP_TOKEN}
 cat << EOF > terraform.tfvars
-## USER: ${GCP_USER}
+
 billing_id = "${GCP_BILLING_ID}"
 org_id = "${GCP_ORG_ID}"
 EOF

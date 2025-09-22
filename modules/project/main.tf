@@ -1,8 +1,8 @@
 resource "random_string" "x" {
-  length = 2
+  length  = 2
   special = false
-  upper = false
-  lower = true
+  upper   = false
+  lower   = true
   numeric = false
 }
 
@@ -34,7 +34,7 @@ resource "google_project_organization_policy" "x" {
   depends_on = [
     google_project_service.x
   ]
-  for_each = toset(var.org_policy_list)
+  for_each   = toset(var.org_policy_list)
   project    = google_project.x.project_id
   constraint = each.value
 
@@ -43,15 +43,6 @@ resource "google_project_organization_policy" "x" {
   }
 }
 
-resource "google_service_account" "minimal_sa" {
-  depends_on = [
-    google_project.x,
-    google_project_service.x
-  ]
-  project = google_project.x.project_id
-  account_id   = "minimal-sa-${google_project.x.number}"
-  display_name = "Minimal SA"
-}
 
 resource "google_project_iam_member" "compute_sa_role" {
   depends_on = [
@@ -60,20 +51,5 @@ resource "google_project_iam_member" "compute_sa_role" {
   ]
   project = google_project.x.project_id
   role    = "roles/owner"
-  member = "serviceAccount:${google_project.x.number}-compute@developer.gserviceaccount.com"
+  member  = "serviceAccount:${google_project.x.number}-compute@developer.gserviceaccount.com"
 }
-
-resource "google_project_iam_member" "minimal_sa_role" {
-  for_each = toset([
-    "roles/container.defaultNodeServiceAccount",
-    "roles/cloudtrace.agent",
-    "roles/cloudsql.client",
-    "roles/cloudprofiler.agent",
-    "roles/storage.objectViewer",
-    "roles/iam.serviceAccountUser"
-  ])
-  role = each.key
-  member = "serviceAccount:${google_service_account.minimal_sa.email}"
-  project = google_project.x.project_id
-}
-
