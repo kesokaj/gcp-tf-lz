@@ -3,7 +3,7 @@
 .terraform
 
 # Exclude gemini + mcp
-.gemini/
+#.gemini/
 
 # .tfstate files
 *.tfstate
