@@ -13,4 +13,5 @@ cat << EOF > terraform.tfvars
 
 billing_id = "${GCP_BILLING_ID}"
 org_id = "${GCP_ORG_ID}"
+gcp_user = "${GCP_USER}"
 EOF

@@ -58,7 +58,7 @@ locals {
         region                   = region
         purpose                  = subnet_config.purpose
         role                     = subnet_config.role
-        private_ip_google_access = subnet_config.purpose == "GLOBAL_MANAGED_PROXY" ? false : true
+        private_ip_google_access = contains(["GLOBAL_MANAGED_PROXY", "REGIONAL_MANAGED_PROXY"], subnet_config.purpose == null ? "" : subnet_config.purpose) ? false : true
         log_config = {
           aggregation_interval = var.logs_config.subnet.interval
           flow_sampling        = var.logs_config.subnet.samples
@@ -86,7 +86,7 @@ locals {
 
 resource "google_compute_network" "vpc" {
   project                 = var.project_id
-  name                    = var.alias_id
+  name                    = var.alias
   auto_create_subnetworks = false
   mtu                     = var.network_mtu
   routing_mode            = "GLOBAL"
@@ -205,8 +205,8 @@ resource "google_compute_router_nat" "nat" {
 
 resource "google_dns_managed_zone" "private_dns_zone" {
   project    = var.project_id
-  name       = var.alias_id
-  dns_name   = "${var.alias_id}.internal."
+  name       = var.alias
+  dns_name   = "${var.alias}.internal."
   visibility = "private"
 
   private_visibility_config {

@@ -235,4 +235,5 @@ variable "network_mtu" {
   type        = number
   description = "The MTU of the VPC network."
   default     = 8896
+
 }
