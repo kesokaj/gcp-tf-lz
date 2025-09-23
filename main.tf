@@ -26,6 +26,7 @@ module "network" {
   peer_allocation   = var.peer_allocation
   logs_config       = var.logs_config
   router_asn        = var.router_asn
+  network_mtu       = var.network_mtu
 }
 
 resource "null_resource" "delay_after_network" {

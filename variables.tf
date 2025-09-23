@@ -15,7 +15,14 @@ variable "regions" {
 }
 
 variable "firewall_config" {
-  type        = map(any)
+  type = map(object({
+    protocol = list(string)
+    ports    = list(string)
+    tags     = list(string)
+    source   = list(string)
+    logs     = string
+    priority = string
+  }))
   description = "A map of firewall rules to be created in the VPC. The keys are the rule names and the values are the rule configurations."
   default = {
     "allow-rdp-tcp" : {
@@ -96,16 +103,26 @@ variable "firewall_config" {
 
 
 variable "logs_config" {
-  type        = map(any)
+  type = object({
+    subnet = object({
+      interval = string
+      samples  = number
+      metadata = string
+    })
+    router = object({
+      enable = bool
+      filter = string
+    })
+  })
   description = "A map of logging configurations for the VPC. The keys are the log types (e.g., 'subnet', 'router') and the values are the logging configurations."
   default = {
     "subnet" : {
       "interval" : "INTERVAL_15_MIN",
-      "samples" : "0.25",
+      "samples" : 0.25,
       "metadata" : "INCLUDE_ALL_METADATA"
     },
     "router" : {
-      "enable" : "true",
+      "enable" : true,
       "filter" : "ALL"
     }
   }
@@ -130,7 +147,7 @@ variable "vpc_supernet_cidr" {
 }
 
 variable "org_policy_list" {
-  type        = list(any)
+  type        = list(string)
   description = "A list of organization policies to be applied to the project."
   default = [
     "constraints/compute.requireOsLogin",
@@ -153,9 +170,10 @@ variable "org_policy_list" {
 }
 
 variable "service_list" {
-  type        = list(any)
+  type        = list(string)
   description = "A list of APIs to be enabled on the project."
   default = [
+    "aiplatform.googleapis.com",
     "orgpolicy.googleapis.com",
     "dns.googleapis.com",
     "compute.googleapis.com",
@@ -211,4 +229,10 @@ variable "service_list" {
     "container.googleapis.com",
     "gkehub.googleapis.com"
   ]
+}
+
+variable "network_mtu" {
+  type        = number
+  description = "The MTU of the VPC network."
+  default     = 8896
 }

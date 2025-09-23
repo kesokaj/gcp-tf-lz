@@ -14,7 +14,14 @@ variable "alias_id" {
 }
 
 variable "firewall_config" {
-  type        = map(any)
+  type = map(object({
+    protocol = list(string)
+    ports    = list(string)
+    tags     = list(string)
+    source   = list(string)
+    logs     = string
+    priority = string
+  }))
   description = "A map of firewall rules to be created in the VPC. The keys are the rule names and the values are the rule configurations."
 }
 
@@ -24,7 +31,17 @@ variable "peer_allocation" {
 }
 
 variable "logs_config" {
-  type        = map(any)
+  type = object({
+    subnet = object({
+      interval = string
+      samples  = number
+      metadata = string
+    })
+    router = object({
+      enable = bool
+      filter = string
+    })
+  })
   description = "A map of logging configurations for the VPC. The keys are the log types (e.g., 'subnet', 'router') and the values are the logging configurations."
 }
 
@@ -41,4 +58,9 @@ variable "regions" {
 variable "router_asn" {
   type        = number
   description = "The BGP ASN for the Cloud Router."
+}
+
+variable "network_mtu" {
+  type        = number
+  description = "The MTU of the VPC network."
 }

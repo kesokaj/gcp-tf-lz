@@ -1,9 +1,9 @@
 output "vpc" {
-  value = google_compute_network.x.name
+  value = google_compute_network.vpc.name
 }
 
 output "vpc_id" {
-  value = google_compute_network.x.id
+  value = google_compute_network.vpc.id
 }
 
 output "subnet" {

@@ -1,23 +1,23 @@
 output "project_id" {
-  value = google_project.x.project_id
+  value = google_project.project.project_id
 }
 
 output "project_name" {
-  value = google_project.x.name
+  value = google_project.project.name
 }
 
 output "project_number" {
-  value = google_project.x.number
+  value = google_project.project.number
 }
 
 output "alias" {
-  value = "${random_string.x.id}${random_integer.x.id}-${random_pet.x.id}"
+  value = "${random_pet.project_prefix.id}-${random_string.project_suffix.id}"
 }
 
 output "alias_id" {
-  value = "${random_string.x.id}${random_integer.x.id}"
+  value = random_string.project_suffix.id
 }
 
 output "org_id" {
-  value = google_project.x.org_id
+  value = google_project.project.org_id
 }

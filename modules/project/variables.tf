@@ -9,11 +9,11 @@ variable "billing_id" {
 }
 
 variable "org_policy_list" {
-  type        = list(any)
+  type        = list(string)
   description = "A list of organization policies to be applied to the project."
 }
 
 variable "service_list" {
-  type        = list(any)
+  type        = list(string)
   description = "A list of APIs to be enabled on the project."
 }
