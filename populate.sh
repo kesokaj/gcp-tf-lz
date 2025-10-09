@@ -1,6 +1,4 @@
-
-
-
+#!/bin/bash
 set -euxo pipefail
 
 GCP_USER=$(gcloud auth list --format="value(ACCOUNT)")

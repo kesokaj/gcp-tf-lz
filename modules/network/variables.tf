@@ -64,3 +64,31 @@ variable "network_mtu" {
   type        = number
   description = "The MTU of the VPC network."
 }
+
+variable "subnet_layout" {
+  description = "Describes the layout of secondary subnets within each region's supernet."
+  type = map(object({
+    newbits = number
+    netnum  = number
+  }))
+  default = {
+    "services" = { newbits = 4, netnum = 1 }
+    "pods"     = { newbits = 1, netnum = 1 }
+    "psc"      = { newbits = 10, netnum = 16 }
+    "glproxy"  = { newbits = 9, netnum = 10 }
+    "rmproxy"  = { newbits = 9, netnum = 11 }
+    "pnat"     = { newbits = 8, netnum = 6 }
+  }
+}
+
+variable "primary_subnet_newbits" {
+  description = "The number of new bits to use for the primary subnet within the region's supernet."
+  type        = number
+  default     = 6
+}
+
+variable "region_supernet_newbits" {
+  description = "The number of new bits to use for each region's supernet within the VPC supernet."
+  type        = number
+  default     = 8
+}

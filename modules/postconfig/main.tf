@@ -1,3 +1,10 @@
+resource "google_compute_project_metadata" "serial_port_logging" {
+  project = var.project_id
+  metadata = {
+    "serial-port-logging-enable" = "TRUE"
+  }
+}
+
 resource "null_resource" "set_project" {
   triggers = {
     always_run = timestamp()

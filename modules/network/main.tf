@@ -1,17 +1,13 @@
 locals {
   region_supernets = {
-    for i, region in var.regions : region => cidrsubnet(var.vpc_supernet_cidr, 8, i)
+    for i, region in var.regions : region => cidrsubnet(var.vpc_supernet_cidr, var.region_supernet_newbits, i)
   }
   vpc_config = {
     for region, supernet in local.region_supernets : region => {
-      vpc_subnet_cidr = cidrsubnet(supernet, 6, 0)
+      vpc_subnet_cidr = cidrsubnet(supernet, var.primary_subnet_newbits, 0)
       secondary_ranges = {
-        psc      = cidrsubnet(supernet, 10, 16)
-        glproxy  = cidrsubnet(supernet, 9, 10)
-        rmproxy  = cidrsubnet(supernet, 9, 11)
-        pnat     = cidrsubnet(supernet, 8, 6)
-        services = cidrsubnet(supernet, 4, 1)
-        pods     = cidrsubnet(supernet, 1, 1)
+        for name, layout in var.subnet_layout :
+        name => cidrsubnet(supernet, layout.newbits, layout.netnum)
       }
     }
   }
