@@ -12,6 +12,17 @@ variable "regions" {
   description = "A list of GCP regions where the VPC and subnets will be created."
   type        = list(string)
   default     = ["us-central1", "europe-west1", "europe-west2"]
+
+  validation {
+    condition     = length(var.regions) > 0
+    error_message = "The list of regions cannot be empty. Please provide at least one GCP region."
+  }
+}
+
+variable "network_mtu" {
+  type        = number
+  description = "The MTU of the VPC network."
+  default     = 8896
 }
 
 variable "firewall_config" {
@@ -229,11 +240,4 @@ variable "service_list" {
     "container.googleapis.com",
     "gkehub.googleapis.com"
   ]
-}
-
-variable "network_mtu" {
-  type        = number
-  description = "The MTU of the VPC network."
-  default     = 8896
-
 }
