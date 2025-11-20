@@ -238,6 +238,7 @@ variable "service_list" {
     "clouddeploy.googleapis.com",
     "runapps.googleapis.com",
     "container.googleapis.com",
-    "gkehub.googleapis.com"
+    "gkehub.googleapis.com",
+    "appoptimize.googleapis.com"
   ]
 }
