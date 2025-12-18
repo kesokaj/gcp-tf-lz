@@ -1,0 +1,68 @@
+graph TD
+    User[User / Developer]
+    
+    subgraph Local_Workstation [Local Workstation]
+        Populate[populate.sh]
+        TF[Terraform]
+        Cleanup[cleanup.sh]
+    end
+
+    subgraph GCP [Google Cloud Platform]
+        subgraph Project_Module [Module: Project]
+            Project[GCP Project]
+            APIs[Enable 50+ APIs]
+            OrgPolicies["Org Policies
+(Security/Constraints)"]
+        end
+
+        subgraph Network_Module [Module: Network]
+            VPC[VPC Network]
+            Supernet[Supernet CIDR]
+            
+            subgraph Regions [Regional Config]
+                Subnets["Subnets
+(Main, GKE, PSC, etc.)"]
+                CloudNAT[Cloud NAT]
+            end
+            
+            Firewall[Firewall Rules]
+            DNS[Private DNS]
+        end
+
+        subgraph Postconfig_Module [Module: Postconfig]
+            Metadata[Project Metadata]
+            GcloudConfig[Update Local gcloud Config]
+        end
+    end
+
+    User -->|1. Configures| Populate
+    Populate -->|Generates| tfvars[terraform.tfvars]
+    User -->|2. Deploys| TF
+    tfvars --> TF
+    User -->|3. Resets| Cleanup
+
+    TF -->|Orchestrates| Project_Module
+    TF -->|Orchestrates| Network_Module
+    TF -->|Orchestrates| Postconfig_Module
+
+    Project --> APIs
+    Project --> OrgPolicies
+
+    Project_Module -->|Dependency| Network_Module
+    Network_Module -->|Depends On| Project
+
+    VPC --> Supernet
+    Supernet --> Regions
+    Regions --> Subnets
+    Regions --> CloudNAT
+    VPC --> Firewall
+    VPC --> DNS
+
+    Network_Module -->|Dependency| Postconfig_Module
+    Postconfig_Module --> Metadata
+    Postconfig_Module --> GcloudConfig
+
+    style User fill:#f9f,stroke:#333,stroke-width:2px
+    style TF fill:#779bbd,stroke:#333,stroke-width:2px,color:white
+    style Project fill:#4285F4,stroke:#333,stroke-width:2px,color:white
+    style VPC fill:#EA4335,stroke:#333,stroke-width:2px,color:white

@@ -1,9 +1,27 @@
-
 # GCP Terraform Landing Zone for Rapid Demos
 
 ![Project Overview Diagram](overview.png)
 
 This Terraform project deploys a foundational Google Cloud Platform (GCP) environment, including a new project and a VPC network. It is designed for rapid development and prototyping, allowing you to quickly stand up a sandbox for concept demos.
+
+## Architecture & Features
+
+This solution follows a modular architecture to ensure separation of concerns and scalability:
+
+*   **Project Factory (`modules/project`)**:
+    *   Creates a new GCP Project with a randomized ID.
+    *   Enables 50+ essential APIs (AI, GKE, Dataflow, Serverless, etc.).
+    *   Applies 16 Organization Policies for security (e.g., Shielded VMs, OS Login, external IP restrictions).
+
+*   **Advanced Networking (`modules/network`)**:
+    *   **Supernetting**: Automatically calculates regional subnets from a global `vpc_supernet_cidr`.
+    *   **Subnet Partitioning**: Further divides regional supernets into functional subnets (Main, GKE Pods, GKE Services, Proxies, PSC, NAT).
+    *   **Connectivity**: Deploys Cloud NAT and creates a Private DNS zone (`google.internal`).
+    *   **Security**: Default firewall rules for internal communication and IAP access.
+
+*   **Post-Configuration (`modules/postconfig`)**:
+    *   Sets project-level metadata (e.g., `serial-port-enable`).
+    *   Automatically updates your local `gcloud` configuration to point to the new project.
 
 ## Prerequisites
 
